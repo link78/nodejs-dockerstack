@@ -1,0 +1,45 @@
+version: "3.7"
+services:
+  app:
+    image: nodejs
+    networks:
+      - app-net
+    ports:
+      - "8080:8000"
+    links:
+      - mongo
+    depends_on:
+      - mongo
+    deploy:
+      mode: replicated
+      replicas: 6
+      endpoint_mode: vip
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 4s
+        max_attempts: 3
+        window: 120s
+  mongo:
+    image: mongo
+    volumes:
+      - app-vol:/data/db
+    networks:
+      - app-net
+    deploy:
+      mode: replicated
+      replicas: 3
+      endpoint_mode: dnsrr
+      update_config:
+        parallelism: 1
+        delay: 5s
+      restart_policy:
+        condition: on-failure
+
+
+volumes:
+  app-vol:
+networks:
+  app-net:

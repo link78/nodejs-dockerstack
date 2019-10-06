@@ -7,7 +7,7 @@ var logger = require('morgan');
 const mongoose = require('mongoose')
 
 const DB_NAME = 'product';
-const DB_HOST = process.env.DB_HOST || 'localhost:27017';
+const DB_HOST = process.env.DB_HOST || 'mongo:27017';
 
 const SERVER_PORT = 8000;
 
