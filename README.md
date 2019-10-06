@@ -1,1 +1,2 @@
 This tutorial demonstrate how to deploy stack into the docker swarm.This is a simple node application with mongodb. The stack run on private network calles app-net whish overlay network(docker network create -d overlay name),themonggodb database is mounted on a local volume called app-vol(docker volume create name). I also added some others confgiguration about the stack would be deployed in the swarm.
+First run:docker swarm init into the command line,then docker build -t nodejs . and then docker stack deploy --compose-file docker-compose.yml myapp
